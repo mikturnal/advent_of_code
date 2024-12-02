@@ -1,4 +1,4 @@
-input_list = 'input.txt'
+input_list = '2024/day_1/input.txt'
 total_distance = 0
 list1 = []
 list2 = []
@@ -6,6 +6,7 @@ list2 = []
 with open(input_list, 'r') as file:
     for line in file:
         two_entries = list(map(int, line.split("   ")))
+        print(two_entries)
         list1.append(two_entries[0])
         list2.append(two_entries[1])
         

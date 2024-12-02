@@ -1,4 +1,4 @@
-input_list = 'input.txt'
+input_list = '2024/day_1/input.txt'
 similarity_score = 0
 list1 = []
 list2 = []
