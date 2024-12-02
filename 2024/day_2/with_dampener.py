@@ -34,7 +34,6 @@ def check_list(entries):
                     is_safe = False
                     break
     if(is_safe):
-        # print("Safe!")
         return True
 
 with open(input_list, 'r') as file:
