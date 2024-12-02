@@ -1,55 +1,38 @@
 input_list = '2024/day_2/input.txt'
 safe_report_counter = 0
-list_of_reports = []
 
 def check_list(entries):
-    increasing = True
+    increasing = None
     is_safe = True
+
     for idx in range(len(entries) - 1):
-        if(abs(entries[idx]-entries[idx+1]) > 3):
+        diff = entries[idx] - entries[idx+1]
+        # check if diff over 3
+        if(abs(diff) > 3):
             is_safe = False
             break
-        if(idx == 0):
-            if(entries[idx] == entries[idx+1]):
-                is_safe = False
-                break
-            if(entries[idx] < entries[idx+1]):
-                increasing = True
-            if(entries[idx] > entries[idx+1]):
-                increasing = False
-        else:
-            if(entries[idx] == entries[idx+1]):
-                is_safe = False
-                break
-            if(entries[idx] < entries[idx+1]):
-                if(increasing == True):
-                    continue
-                else:
-                    is_safe = False
-                    break
-            if(entries[idx] > entries[idx+1]):
-                if(increasing == False):
-                    continue
-                else:
-                    is_safe = False
-                    break
-    if(is_safe):
-        return True
+        
+        # check if entries are equal
+        if(diff == 0):
+            is_safe = False
+            break
+        
+        if increasing is None: # first iteration
+            increasing = diff < 0
+        elif (diff < 0 and not increasing) or (diff > 0 and increasing):
+            is_safe = False
+            break
+
+    return is_safe
 
 with open(input_list, 'r') as file:
     for line in file:
-        entries = list(map(int, line.split(" ")))
-        # print(entries)
-        found_safe = False
+        entries = list(map(int, line.split()))
         for idx, entry in enumerate(entries):
             mod_entries = entries[:]
             mod_entries.pop(idx)
-            # print(f"Modded Entries: {mod_entries}")
-            found_safe = check_list(mod_entries)
-            if(found_safe):
+            if(check_list(mod_entries)):
                 safe_report_counter += 1
                 break
-        
 
     print(f"Safe Reports: {safe_report_counter}")
-
